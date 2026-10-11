@@ -57,11 +57,13 @@ export default async function AvailabilityPage({
           <>
             {typeof params.paymentError === "string" && (
               <p className="mb-5 border-l-2 border-[#e5643f] bg-white px-4 py-3 text-sm text-[#8d392c]" role="alert">
-                {{
-                  invalid: "Los datos del turno no son válidos.",
-                  unavailable: "Ese turno ya no está disponible. Actualizá la agenda.",
-                  checkout: "No pudimos iniciar el pago. Revisá la configuración e intentá nuevamente.",
-                }[params.paymentError] ?? "No se pudo iniciar la reserva."}
+                {(
+                  {
+                    invalid: "Los datos del turno no son válidos.",
+                    unavailable: "Ese turno ya no está disponible. Actualizá la agenda.",
+                    checkout: "No pudimos iniciar el pago. Revisá la configuración e intentá nuevamente.",
+                  }[params.paymentError] ?? "No se pudo iniciar la reserva."
+                )}
               </p>
             )}
             {params.payment === "success" && (

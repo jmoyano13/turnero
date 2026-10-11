@@ -8,7 +8,7 @@ const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((value) => {
 const slotTimeSchema = z.string().regex(/^(?:[01]\d|2[23]):(?:00|30):00$/)
   .refine((value) => {
     const [hours, minutes] = value.split(":").map(Number);
-    return (hours * 60 + minutes) % 90 === 0;
+    return (hours * 60 + minutes) % 90 === 30;
   }, "Elegí el inicio de un turno de 90 minutos.");
 
 const uuidSchema = z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);

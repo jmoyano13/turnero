@@ -51,7 +51,7 @@ begin
   end if;
 
   if p_court_id is null or p_booking_date is null or p_start_time is null
-    or extract(epoch from p_start_time)::integer / 60 % 90 <> 0
+    or extract(epoch from p_start_time)::integer / 60 % 90 <> 30
     or p_booking_date < v_now::date
     or p_booking_date > v_now::date + 7
     or p_booking_date + p_start_time <= v_now then

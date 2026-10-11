@@ -2,6 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   distDir: process.env.NEXT_DIST_DIR ?? ".next",
+  allowedDevOrigins: ["a845-38-253-64-182.ngrok-free.app"],
   async headers() {
     return [{
       source: "/:path*",
