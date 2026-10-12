@@ -104,8 +104,8 @@ export async function cancelBookingPlayerAction(formData: FormData) {
     supabase.from("courts").select("name").eq("id", booking.court_id).single(),
     supabase.from("profiles").select("email, first_name, last_name").eq("id", profile.id).single(),
   ]);
-    }
 
   revalidatePath("/availability");
   revalidatePath("/owner");
   revalidatePath("/profile/bookings");
+}
