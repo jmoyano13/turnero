@@ -5,7 +5,7 @@ export default function Home() {
     <main className="min-h-screen bg-[#f5f4ef] text-[#202720]">
       <header className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6 sm:px-10">
         <Link className="font-sans text-xl font-bold tracking-tight" href="/">
-          turnero<span className="text-[#e5643f]">.</span>
+          Turnero<span className="text-[#e5643f]">.</span>
         </Link>
         <Link className="text-sm font-semibold text-[#34443b] underline decoration-[#a7b5a8] underline-offset-4" href="/login">
           Iniciar sesión
@@ -18,7 +18,7 @@ export default function Home() {
             Tu próximo partido, más cerca.
           </h1>
           <p className="mt-6 max-w-lg text-lg leading-8 text-[#5d665e]">
-            Consultá turnos, reservá tu cancha y tené toda la información de tus partidos en un solo lugar.
+            Consultá turnos, reservá tu cancha y obtené toda la información de tus partidos en un solo lugar.
           </p>
           <div className="mt-9 flex flex-col gap-3 sm:flex-row">
             <Link className="inline-flex min-h-12 items-center justify-center bg-[#315b43] px-6 text-sm font-semibold text-white transition-colors hover:bg-[#244733]" href="/availability">
@@ -37,7 +37,6 @@ export default function Home() {
           <div className="relative flex h-full min-h-[250px] flex-col justify-between sm:min-h-[310px]">
             <div className="flex items-start justify-between gap-4">
               <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#d7e6d6]">La agenda, clara</span>
-              <span className="flex h-10 w-10 items-center justify-center border border-white/40 text-sm font-semibold">02</span>
             </div>
             <div>
               <p className="text-sm text-[#d7e6d6]">Un lugar para organizar</p>

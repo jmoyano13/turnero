@@ -51,7 +51,7 @@ export default async function AvailabilityPage({
         {error ? (
           <div className="mt-8 border-l-2 border-[#e5643f] bg-white px-5 py-4 text-sm text-[#5d665e]" role="alert">
             {error}
-            <p className="mt-2"><Link className="font-semibold text-[#315b43] underline underline-offset-4" href="/login">Iniciar sesión</Link> para gestionar tu cuenta.</p>
+            <p className="mt-2"><Link className="font-semibold text-[#315b43] underline underline-offset-4" href="/login">Perfil</Link> para gestionar tu cuenta.</p>
           </div>
         ) : (
           <>

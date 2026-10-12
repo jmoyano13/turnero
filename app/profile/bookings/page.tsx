@@ -19,7 +19,7 @@ export default async function PlayerBookingsPage({
     <main className="min-h-screen bg-[#f5f4ef] px-5 py-8 text-[#202720] sm:px-8 sm:py-12">
       <div className="mx-auto w-full max-w-4xl">
         <header className="flex items-center justify-between gap-4 border-b border-[#d9ddd5] pb-5">
-          <Link className="text-xl font-bold tracking-tight text-[#263b2c]" href="/">turnero<span className="text-[#e5643f]">.</span></Link>
+          <Link className="text-xl font-bold tracking-tight text-[#263b2c]" href="/availability">Turnero<span className="text-[#e5643f]">.</span></Link>
           <nav className="flex gap-4 text-sm font-semibold">
             <Link className="text-[#315b43] underline underline-offset-4" href="/profile">Perfil</Link>
             <Link className="text-[#315b43] underline underline-offset-4" href="/availability">Disponibilidad</Link>

@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 
+import { getValidSlotStartTimes } from "@/features/bookings/utils/slot-validation";
 import { createLockAction, deleteLockAction, type LockActionState } from "@/features/locks/actions/lock-actions";
 import { getSlotEndTime, weekDays } from "@/features/locks/types/lock.schema";
 import type { CourtLock } from "@/shared/types/database.types";
@@ -12,10 +13,7 @@ type LockListItem = Pick<CourtLock,
 >;
 
 const initialState: LockActionState = {};
-const lockTimes = Array.from({ length: 16 }, (_, index) => {
-  const minutes = index * 90;
-  return `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}:00`;
-});
+const lockTimes = getValidSlotStartTimes();
 
 export function LockManager({
   courtIds,
@@ -71,7 +69,7 @@ export function LockManager({
           </label>
           <label className="grid gap-1.5 text-xs font-semibold text-[#425247]">
             Inicio · duración 90 min
-            <select className="h-10 border border-[#c7cfc4] bg-white px-3 font-mono text-sm font-normal" name="startTime" defaultValue="18:00:00">
+            <select className="h-10 border border-[#c7cfc4] bg-white px-3 font-mono text-sm font-normal" name="startTime" defaultValue="18:30:00">
               {lockTimes.map((time) => <option key={time} value={time}>{time.slice(0, 5)}–{getSlotEndTime(time).slice(0, 5)}</option>)}
             </select>
           </label>

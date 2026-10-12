@@ -17,7 +17,7 @@ export default async function LoginPage({
   return (
     <main className="min-h-screen bg-[#f5f4ef] px-5 py-8 text-[#202720] sm:px-8 sm:py-12">
       <div className="mx-auto w-full max-w-5xl">
-        <Link className="font-sans text-xl font-bold tracking-tight" href="/">turnero<span className="text-[#e5643f]">.</span></Link>
+        <Link className="font-sans text-xl font-bold tracking-tight" href="/">Turnero<span className="text-[#e5643f]">.</span></Link>
         <div className="mt-10 grid overflow-hidden border border-[#dce0d8] bg-white lg:grid-cols-[0.85fr_1.15fr]">
           <aside className="flex min-h-48 flex-col justify-between bg-[#315b43] p-7 text-white sm:p-10 lg:min-h-[580px]">
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#d7e6d6]">Volvé a la cancha</p>

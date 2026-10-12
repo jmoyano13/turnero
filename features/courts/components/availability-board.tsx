@@ -82,7 +82,7 @@ export function AvailabilityBoard({ slots, isOwner, isPlayer = false }: { slots:
                       </form>
                     ) : (
                       <Link className="mt-2 flex min-h-9 items-center justify-center border border-[#315b43] px-2 text-[10px] font-semibold text-[#315b43] hover:bg-white" href="/login">
-                        Iniciar sesión
+                        Perfil
                       </Link>
                     )}
                   </>
@@ -123,13 +123,13 @@ export function AvailabilityLegend() {
 export function CourtsHeader({ title, isOwner }: { title: string; isOwner: boolean }) {
   return (
     <header className="flex items-center justify-between border-b border-[#d9ddd5] px-5 py-4 sm:px-9">
-      <Link className="font-semibold tracking-wide text-[#263b2c]" href="/">
-        turnero<span className="text-[#e5643f]">.</span>
+      <Link className="font-semibold tracking-wide text-[#263b2c]" href="/availability">
+        Turnero<span className="text-[#e5643f]">.</span>
       </Link>
       <div className="flex items-center gap-4">
         <span className="hidden text-sm text-[#536057] sm:inline">{title}</span>
         <Link className="text-xs font-semibold text-[#315b43] underline decoration-[#a7b5a8] underline-offset-4" href={isOwner ? "/availability" : "/login"}>
-          {isOwner ? "Vista pública" : "Iniciar sesión"}
+          {isOwner ? "Vista pública" : "Perfil"}
         </Link>
       </div>
     </header>

@@ -1,14 +1,14 @@
 import { z } from "zod";
 
+import { isValidSlotStartTime } from "@/features/bookings/utils/slot-validation";
+
 const dateSchema = z.string().regex(/^\d{4}-\d{2}-\d{2}$/).refine((value) => {
   const date = new Date(`${value}T00:00:00.000Z`);
   return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
 }, "La fecha no es válida.");
 
-const slotTimeSchema = z.string().regex(/^(?:[01]\d|2[23]):(?:00|30):00$/)
-  .refine((value) => Number(value.slice(0, 2)) * 60 + Number(value.slice(3, 5)) < 24 * 60 &&
-    (Number(value.slice(0, 2)) * 60 + Number(value.slice(3, 5))) % 90 === 0,
-  "Elegí el inicio de un turno de 90 minutos.");
+const slotTimeSchema = z.string().regex(/^(?:[01]\d|2[0-3]):(?:00|30):00$/)
+  .refine((value) => isValidSlotStartTime(value), "Elegí el inicio de un turno de 90 minutos.");
 
 const courtIdSchema = z.string().regex(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i);
 

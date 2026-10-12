@@ -13,7 +13,7 @@ export default async function ProfilePage() {
     <main className="min-h-screen bg-[#f5f4ef] px-5 py-8 text-[#202720] sm:px-8 sm:py-12">
       <div className="mx-auto w-full max-w-4xl">
         <header className="flex items-center justify-between gap-4">
-          <Link className="font-sans text-xl font-bold tracking-tight" href="/">turnero<span className="text-[#e5643f]">.</span></Link>
+          <Link className="font-sans text-xl font-bold tracking-tight" href="/availability">Turnero<span className="text-[#e5643f]">.</span></Link>
           <SignOutButton />
         </header>
         <section className="mt-10 border border-[#dce0d8] bg-white p-6 sm:p-10">

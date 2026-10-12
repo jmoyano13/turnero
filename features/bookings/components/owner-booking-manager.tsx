@@ -8,16 +8,14 @@ import {
   updateBookingOwnerAction,
 } from "@/features/bookings/actions/booking-actions";
 import type { BookingActionState } from "@/features/bookings/types/booking.schema";
+import { getValidSlotStartTimes } from "@/features/bookings/utils/slot-validation";
 import type { OwnerBookingView, RegisteredPlayerOption } from "@/features/bookings/services/owner-booking-service";
 import type { AvailabilitySlot, CourtRecord } from "@/features/courts/types/availability";
 
 const initialState: BookingActionState = {};
 const fieldClass = "mt-1 h-10 w-full border border-[#c7cfc4] bg-white px-3 text-sm font-normal text-[#202720]";
 const labelClass = "grid gap-1 text-xs font-semibold text-[#536057]";
-const slotTimes = Array.from({ length: 16 }, (_, index) => {
-  const minutes = index * 90;
-  return `${String(Math.floor(minutes / 60)).padStart(2, "0")}:${String(minutes % 60).padStart(2, "0")}:00`;
-});
+const slotTimes = getValidSlotStartTimes();
 
 function money(value: number) {
   return new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS", maximumFractionDigits: 0 }).format(value);

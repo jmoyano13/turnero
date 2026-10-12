@@ -68,7 +68,7 @@ begin
   end if;
 
   if p_court_id is null or p_booking_date is null or p_start_time is null
-    or extract(epoch from p_start_time)::integer / 60 % 90 <> 0
+    or ((extract(epoch from p_start_time)::integer / 60) - 30) % 90 <> 0
     or (p_player_id is null and nullif(trim(p_manual_player_name), '') is null)
     or (p_player_id is not null and nullif(trim(p_manual_player_name), '') is not null) then
     return jsonb_build_object('success', false, 'reason', 'INVALID_INPUT');
@@ -140,7 +140,7 @@ begin
   end if;
 
   if p_booking_id is null or p_court_id is null or p_booking_date is null or p_start_time is null
-    or extract(epoch from p_start_time)::integer / 60 % 90 <> 0 then
+    or ((extract(epoch from p_start_time)::integer / 60) - 30) % 90 <> 0 then
     return jsonb_build_object('success', false, 'reason', 'INVALID_INPUT');
   end if;
 
@@ -270,7 +270,7 @@ begin
     return new;
   end if;
 
-  if extract(epoch from new.start_time)::integer / 60 % 90 <> 0 then
+  if ((extract(epoch from new.start_time)::integer / 60) - 30) % 90 <> 0 then
     raise exception using errcode = '23514', message = 'Booking start must match the 90-minute slot grid';
   end if;
 

@@ -1,6 +1,4 @@
 import { revalidatePath } from "next/cache";
-
-import { sendBookingCancelledEmail, sendBookingConfirmedEmail, type BookingEmail } from "@/features/bookings/services/email-service";
 import { getMercadoPagoPayment } from "@/features/bookings/services/mercadopago-service";
 import { verifyMercadoPagoSignature } from "@/features/bookings/services/mercadopago-signature";
 import { createSupabaseAdminClient } from "@/shared/lib/supabase/admin";
@@ -23,32 +21,6 @@ const uuidPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{1
 
 function readResult(data: Json | null): ConfirmationResult | null {
   return data && typeof data === "object" && !Array.isArray(data) ? data as ConfirmationResult : null;
-}
-
-async function getBookingEmail(admin: ReturnType<typeof createSupabaseAdminClient>, bookingId: string): Promise<BookingEmail | null> {
-  const { data: booking, error: bookingError } = await admin.from("bookings")
-    .select("id, player_id, court_id, booking_date, start_time, end_time, total_price, deposit_amount, refund_required")
-    .eq("id", bookingId)
-    .single();
-  if (bookingError || !booking?.player_id) return null;
-
-  const [{ data: profile }, { data: court }] = await Promise.all([
-    admin.from("profiles").select("email, first_name, last_name").eq("id", booking.player_id).single(),
-    admin.from("courts").select("name").eq("id", booking.court_id).single(),
-  ]);
-  if (!profile || !court) return null;
-
-  return {
-    email: profile.email,
-    playerName: [profile.first_name, profile.last_name].filter(Boolean).join(" ") || profile.email,
-    courtName: court.name,
-    bookingDate: booking.booking_date,
-    startTime: booking.start_time,
-    endTime: booking.end_time,
-    totalPrice: Number(booking.total_price),
-    depositAmount: Number(booking.deposit_amount),
-    refundRequired: booking.refund_required,
-  };
 }
 
 export async function POST(request: Request) {
@@ -105,17 +77,7 @@ export async function POST(request: Request) {
   }
 
   const result = readResult(data);
-  if (result?.booking_id && result.status !== "ALREADY_PROCESSED" && result.status !== "ALREADY_LOST") {
-    try {
-      const booking = await getBookingEmail(admin, result.booking_id);
-      if (booking) {
-        if (result.success) await sendBookingConfirmedEmail(booking);
-        else if (booking.refundRequired) await sendBookingCancelledEmail(booking);
-      }
-    } catch (emailError) {
-      console.error("No se pudo enviar la notificación de pago:", emailError);
-    }
-  }
+
 
   revalidatePath("/availability");
   revalidatePath("/owner");
