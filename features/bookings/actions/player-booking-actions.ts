@@ -4,7 +4,6 @@ import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 import { requireProfile } from "@/features/auth/services/profile-service";
-import { sendBookingCancelledEmail } from "@/features/bookings/services/email-service";
 import { createMercadoPagoPreference } from "@/features/bookings/services/mercadopago-service";
 import { cancelBookingPlayerSchema, createOnlineBookingSchema } from "@/features/bookings/types/booking.schema";
 import { getBusinessDate } from "@/features/courts/types/availability";
@@ -105,26 +104,8 @@ export async function cancelBookingPlayerAction(formData: FormData) {
     supabase.from("courts").select("name").eq("id", booking.court_id).single(),
     supabase.from("profiles").select("email, first_name, last_name").eq("id", profile.id).single(),
   ]);
-  if (court && currentProfile) {
-    try {
-      await sendBookingCancelledEmail({
-        email: currentProfile.email,
-        playerName: [currentProfile.first_name, currentProfile.last_name].filter(Boolean).join(" ") || currentProfile.email,
-        courtName: court.name,
-        bookingDate: booking.booking_date,
-        startTime: booking.start_time,
-        endTime: booking.end_time,
-        totalPrice: Number(booking.total_price),
-        depositAmount: Number(booking.deposit_amount),
-        refundRequired: result.refund_required ?? booking.payment_status === "paid",
-      });
-    } catch (emailError) {
-      console.error("No se pudo enviar el email de cancelación:", emailError);
     }
-  }
 
   revalidatePath("/availability");
   revalidatePath("/owner");
   revalidatePath("/profile/bookings");
-  redirect(`/profile/bookings?notice=${result.refund_required ? "cancelled-refund" : "cancelled"}`);
-}
