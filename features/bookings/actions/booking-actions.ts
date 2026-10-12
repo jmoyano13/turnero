@@ -2,8 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
-import { sendBookingCancelledEmail } from "@/features/bookings/services/email-service";
 import {
   cancelBookingOwnerSchema,
   createManualBookingSchema,
@@ -133,26 +131,8 @@ export async function cancelBookingOwnerAction(formData: FormData) {
       supabase.from("profiles").select("email, first_name, last_name").eq("id", booking.player_id).single(),
       supabase.from("courts").select("name").eq("id", booking.court_id).single(),
     ]);
-    if (player && court) {
-      try {
-        await sendBookingCancelledEmail({
-          email: player.email,
-          playerName: [player.first_name, player.last_name].filter(Boolean).join(" ") || player.email,
-          courtName: court.name,
-          bookingDate: booking.booking_date,
-          startTime: booking.start_time,
-          endTime: booking.end_time,
-          totalPrice: Number(booking.total_price),
-          depositAmount: Number(booking.deposit_amount),
-          refundRequired: result.refund_required ?? false,
-        });
-      } catch (emailError) {
-        console.error("No se pudo enviar el email de cancelación:", emailError);
-      }
-    }
-  }
 
   revalidateAgenda();
   revalidatePath("/profile/bookings");
   redirect(`/owner?date=${bookingDate}&notice=${result.refund_required ? "booking-refund" : "booking-cancelled"}`);
-}
+}}
