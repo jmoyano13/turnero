@@ -16,8 +16,8 @@ port = 54323
 
 [auth]
 enabled = true
-site_url = "http://localhost:3000"
-additional_redirect_urls = ["http://localhost:3000/auth/callback"]
+site_url = "https://turnero-gilt.vercel.app/"
+additional_redirect_urls = ["https://turnero-gilt.vercel.app/auth/callback"]
 enable_signup = true
 
 [auth.email]

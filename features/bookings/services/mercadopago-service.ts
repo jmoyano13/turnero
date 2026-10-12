@@ -43,7 +43,8 @@ export async function createMercadoPagoPreference({
       payer: { email: payerEmail },
       items: [{
         id: attemptId,
-        title: `Seña ${courtName} · ${bookingDate} ${startTime.slice(0, 5)}`,
+        title: `Seña ${courtName}`,
+        description: `Reserva de cancha • ${bookingDate} ${startTime.slice(0, 5)} • ${courtName}`,
         quantity: 1,
         currency_id: "ARS",
         unit_price: depositAmount,
